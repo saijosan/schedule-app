@@ -91,6 +91,35 @@
         const startDay = 11;
         const endDay = 17;
 
+        function saveSelection() {
+            const selections = [];
+            const rows = document.querySelectorAll('#calendar-body tr');
+            rows.forEach(row => {
+                const rowSelections = [];
+                row.querySelectorAll('td').forEach((td, index) => {
+                    if (index > 0 && td.classList.contains('selected')) {
+                        rowSelections.push(index);
+                    }
+                });
+                selections.push(rowSelections);
+            });
+            localStorage.setItem('calendarSelections', JSON.stringify(selections));
+        }
+
+        function loadSelection() {
+            const selections = JSON.parse(localStorage.getItem('calendarSelections'));
+            if (!selections) return;
+            const rows = document.querySelectorAll('#calendar-body tr');
+            rows.forEach((row, rowIndex) => {
+                const rowSelections = selections[rowIndex];
+                row.querySelectorAll('td').forEach((td, index) => {
+                    if (index > 0 && rowSelections.includes(index)) {
+                        td.classList.add('selected');
+                    }
+                });
+            });
+        }
+
         function generateCalendar() {
             const tbody = document.getElementById('calendar-body');
             for (let day = startDay; day <= endDay; day++) {
@@ -103,12 +132,14 @@
                     const td = document.createElement('td');
                     td.addEventListener('click', () => {
                         td.classList.toggle('selected');
+                        saveSelection();
                     });
                     tr.appendChild(td);
                 });
 
                 tbody.appendChild(tr);
             }
+            loadSelection();
         }
 
         document.addEventListener('DOMContentLoaded', generateCalendar);
