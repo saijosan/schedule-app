@@ -16,10 +16,13 @@
         h1 {
             background-color: #ffcc80;
             color: white;
-            padding: 20px 0;
+            padding: 20px;
             margin: 0 0 20px 0;
+            font-size: 1.5em;
         }
         table {
+            width: 100%;
+            max-width: 600px;
             margin: 0 auto;
             border-collapse: collapse;
             background-color: white;
@@ -33,6 +36,7 @@
         th {
             background-color: #ffcc80;
             color: white;
+            font-size: 0.9em;
         }
         td {
             cursor: pointer;
@@ -40,6 +44,7 @@
             height: 50px;
             text-align: center;
             vertical-align: middle;
+            font-size: 0.9em;
         }
         td:hover {
             background-color: #f1f1f1;
@@ -48,6 +53,15 @@
             content: '◯';
             color: #ff7043;
             font-size: 1.5em;
+        }
+        @media screen and (max-width: 600px) {
+            th, td {
+                padding: 8px;
+                font-size: 0.8em;
+            }
+            h1 {
+                font-size: 1.2em;
+            }
         }
     </style>
 </head>
